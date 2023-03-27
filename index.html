@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Objem krychle</title>
+</head>
+<body>
+  <h1>Objem krychle</h1>
+  <form>
+    <label for="edgeInput">Zadej délku hrany krychle (v cm):</label>
+    <input type="number" id="edgeInput" name="edge">
+    <br>
+    <button type="button" onclick="calculateCubeVolume()">Vypočítat</button>
+  </form>
+  <div id="result"></div>
+  
+  <!-- Zde by byl odkaz na help stránku -->
+  
+  <script>
+    function calculateCubeVolume() {
+      // Výpočet objemu krychle
+      const edge = document.getElementById("edgeInput").value;
+      const volume = Math.pow(edge, 3);
+  
+      // Vypsání výsledku na stránce
+      document.getElementById("result").innerHTML = `Objem krychle o hraně ${edge} cm je ${volume} cm<sup>3</sup>`;
+    }
+  </script>
+</body>
+</html>
