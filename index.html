@@ -6,24 +6,55 @@
 <body>
   <h1>Objem krychle</h1>
   <form>
-    <label for="edgeInput">Zadej délku hrany krychle (v cm):</label>
-    <input type="number" id="edgeInput" name="edge">
+    <label for="input-hrana">Zadej délku hrany krychle (v m):</label>
+    <input type="number" id="input-hrana" name="hrana">
     <br>
-    <button type="button" onclick="calculateCubeVolume()">Vypočítat</button>
+    <button type="button" id="tlacitko">Vypočítat</button>
+    <br><br>
+    <button type="button" id="ukazat-vypocet">Ukázat výpočet</button>
   </form>
-  <div id="result"></div>
-  
-  <!-- Zde by byl odkaz na help stránku -->
-  
+  <div id="vysledek"></div>
+  <!-- Odkaz na PDF s obrázkem krychle -->
+  <embed id="krychle1" type="application/pdf" width="500" height="600" />
   <script>
-    function calculateCubeVolume() {
-      // Výpočet objemu krychle
-      const edge = document.getElementById("edgeInput").value;
-      const volume = Math.pow(edge, 3);
-  
-      // Vypsání výsledku na stránce
-      document.getElementById("result").innerHTML = `Objem krychle o hraně ${edge} cm je ${volume} cm<sup>3</sup>`;
+    // Nastavení cesty k PDF souboru
+    const cestaKPDF = "krychle1.pdf";
+
+    // Funkce pro výpočet objemu krychle
+    function vypocetObjemuKrychle(hrana) {
+      return Math.pow(hrana, 3);
     }
+
+    // Funkce pro zobrazení výsledku a obrázku krychle
+    function zobrazVysledek() {
+      // Získání délky hrany od uživatele
+      const hrana = parseFloat(document.querySelector("#input-hrana").value);
+
+      // Kontrola, zda uživatel zadává platné číslo
+      if (isNaN(hrana)) {
+        document.querySelector("#vysledek").textContent = "Zadejte platné číslo!";
+        return;
+      }
+
+      // Výpočet objemu krychle
+      const objemKrychle = vypocetObjemuKrychle(hrana);
+
+      // Zobrazení výsledku na stránce
+      document.querySelector("#vysledek").innerHTML = `Objem krychle o délce hrany ${hrana} m je ${objemKrychle} m<sup>3</sup>.`;
+
+      }
+
+    // Přidání posluchače na tlačítko pro výpočet objemu krychle
+    document.querySelector("#tlacitko").addEventListener("click", zobrazVysledek);
+
+    // Přidání posluchače na tlačítko pro zobrazení výpočtu a obrázku
+    document.querySelector("#ukazat-vypocet").addEventListener("click", function() {
+      
+      // Zobrazení PDF souboru s obrázkem krychle
+      document.querySelector("#krychle1").setAttribute("src", cestaKPDF);
+    
+      document.querySelector("#krychle1").style.display = "block";
+    });
   </script>
 </body>
 </html>
